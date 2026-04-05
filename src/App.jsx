@@ -1,8 +1,9 @@
+  import Practice from "./components/Practice";
 function App() {
   
   return (
     <div>
-     <h3>I love you Dev...</h3>
+    <Practice/>
     </div>
   );
 }
