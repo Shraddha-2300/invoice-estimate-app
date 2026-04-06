@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/style.css";
 
 function UserDetails() {
   const printData = (data) => {
@@ -16,35 +17,23 @@ function UserDetails() {
     <form onSubmit={handleSubmit}>
       <h2>Basic Form</h2>
 
-      <label>Name:</label>
-      <br />
+      <label className="form-label">Name:</label>
       <input type="text" name="name" />
-      <br />
-      <br />
 
-      <label>Phone:</label>
-      <br />
+      <label className="form-label">Phone:</label>
       <input type="tel" name="phone" />
-      <br />
-      <br />
 
-      <label>Email:</label>
-      <br />
+      <label className="form-label">Email:</label>
       <input type="email" name="email" />
-      <br />
-      <br />
+      
 
-      <label>Bio:</label>
-      <br />
+      <label className="form-label">Bio:</label>
       <textarea name="bio"></textarea>
-      <br />
-      <br />
+      
 
-      <label>Profile Pic:</label>
-      <br />
+      <label className="form-label">Profile Pic:</label>
       <input type="file" accept="image/*" />
-      <br />
-      <br />
+     
 
       <button type="submit">Submit</button>
     </form>
