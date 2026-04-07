@@ -11,6 +11,25 @@ function UserDetails() {
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
 
+    const phonePattern = /^[0-9]{10}$/;
+
+    if (!phonePattern.test(data.phone)) {
+      alert("Please enter valid 10-digit phone number");
+      return;
+    }
+
+    if (!formData.has("terms")) {
+      alert("Please accept Terms & Conditions");
+      return;
+    }
+
+    if (data.password !== data.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    data.terms = formData.has("terms");
+
     printData(data);
   };
   return (
@@ -26,6 +45,11 @@ function UserDetails() {
         Email:
       </label>
       <input type="email" name="email" />
+
+      <label className="form-label" htmlFor="phone">
+        Phone Number
+      </label>
+      <input id="phone" type="tel" name="phone" />
 
       <label className="form-label" htmlFor="password">
         Password
@@ -75,7 +99,7 @@ function UserDetails() {
         <input type="checkbox" id="terms" name="terms" />
         <label htmlFor="terms">I agree to Terms & Conditions</label>
       </div>
-      
+
       <button type="submit">Submit</button>
     </form>
   );

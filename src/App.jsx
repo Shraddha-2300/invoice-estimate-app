@@ -1,9 +1,9 @@
-  import Practice from "./components/Practice";
+import UserDetails from "./components/UserDetails";
 function App() {
   
   return (
     <div>
-    <Practice/>
+    <UserDetails/>
     </div>
   );
 }
