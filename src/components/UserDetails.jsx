@@ -1,5 +1,7 @@
 import React from "react";
 import "../styles/style.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function UserDetails() {
   const printData = (data) => {
@@ -14,17 +16,17 @@ function UserDetails() {
     const phonePattern = /^[0-9]{10}$/;
 
     if (!phonePattern.test(data.phone)) {
-      alert("Please enter valid 10-digit phone number");
+      toast.error("Please enter valid 10-digit phone number");
       return;
     }
 
     if (!formData.has("terms")) {
-      alert("Please accept Terms & Conditions");
+      toast.error("Please accept Terms & Conditions");
       return;
     }
 
     if (data.password !== data.confirmPassword) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
 
@@ -33,6 +35,7 @@ function UserDetails() {
     printData(data);
   };
   return (
+    <>
     <form onSubmit={handleSubmit}>
       <h2>Basic Form</h2>
 
@@ -102,6 +105,8 @@ function UserDetails() {
 
       <button type="submit">Submit</button>
     </form>
+    <ToastContainer/>
+    </>
   );
 }
 
