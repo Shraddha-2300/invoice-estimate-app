@@ -1,9 +1,11 @@
-import UserDetails from "./components/UserDetails";
+import UserData from "./components/UserData";
+import Account from "./pages/Account";
+
 function App() {
   
   return (
     <div>
-    <UserDetails/>
+    <Account/>
     </div>
   );
 }
