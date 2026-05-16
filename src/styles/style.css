@@ -38,3 +38,100 @@ button {
 button:hover {
   background-color: #45a049;
 }
+
+.phone-group {
+  display: flex;
+  gap: 10px;
+}
+
+.country-code {
+  width: 100px;
+}
+
+.error-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.error-page h1 {
+  font-size: 80px;
+}
+
+.error-page button {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.Toastify__close-button {
+  width: auto !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.Toastify__toast {
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.review-container {
+  width: 500px;
+  margin: 40px auto;
+  padding: 30px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.review-container h1 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.review-container p {
+  margin-bottom: 10px;
+}
+
+.review-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #f9f9f9;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.review-header h2 {
+  margin: 0;
+}
+
+.review-header button {
+  width: auto;
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+.review-content p {
+  margin: 8px 0;
+}
+
+.owner-box {
+  margin-bottom: 15px;
+}
+
+.submit-btn {
+  margin-top: 25px;
+}
