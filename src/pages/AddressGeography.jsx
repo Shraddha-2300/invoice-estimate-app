@@ -1,5 +1,5 @@
+
 import React, { useState } from "react";
-import "../styles/style.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
@@ -34,7 +34,6 @@ function AddressGeography() {
     ],
   };
 
-  // Cities based on country + state
   const citiesData = {
     IN: {
       MH: ["Mumbai", "Pune", "Nagpur"],
@@ -52,7 +51,6 @@ function AddressGeography() {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Reset state + city when country changes
     if (name === "country") {
       setForm({
         ...form,
@@ -60,10 +58,7 @@ function AddressGeography() {
         state: "",
         city: "",
       });
-    }
-
-    // Reset city when state changes
-    else if (name === "state") {
+    } else if (name === "state") {
       setForm({
         ...form,
         state: value,
@@ -128,100 +123,159 @@ function AddressGeography() {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <h2>Address & Geography</h2>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
 
-        <h3>Registered Headquarters</h3>
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-2xl bg-white rounded-2xl shadow-lg p-8"
+      >
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-2">
+          Address & Geography
+        </h2>
 
-        <label className="form-label" htmlFor="streetaddress">
-          Street Address
-        </label>
+        <p className="text-center text-gray-500 mb-8">
+          Enter your registered headquarters details
+        </p>
 
-        <input
-          type="text"
-          name="addressLine1"
-          value={form.addressLine1}
-          onChange={handleChange}
-          placeholder="e.g. 123 Innovation Drive"
-        />
-
-        <label className="form-label" htmlFor="apartmentsuiteunit">
-          Apartment, suite, unit (optional)
-        </label>
-
-        <input
-          type="text"
-          name="addressLine2"
-          value={form.addressLine2}
-          onChange={handleChange}
-          placeholder="Apartment / Suite"
-        />
-
-        <label className="form-label" htmlFor="country">
-          Country / Region
-        </label>
-
-        <select name="country" value={form.country} onChange={handleChange}>
-          <option value="">Select</option>
-          <option value="IN">India</option>
-          <option value="US">United States</option>
-        </select>
-
-        <label className="form-label" htmlFor="stateprovince">
-          State / Province
-        </label>
-
-        <select name="state" value={form.state} onChange={handleChange}>
-          <option value="">Select</option>
-
-          {statesData[form.country]?.map((state) => (
-            <option key={state.code} value={state.code}>
-              {state.name}
-            </option>
-          ))}
-        </select>
-
-        <label className="form-label" htmlFor="city">
-          City
-        </label>
-
-        <select name="city" value={form.city} onChange={handleChange}>
-          <option value="">Select City</option>
-
-          {citiesData[form.country]?.[form.state]?.map((city) => (
-            <option key={city} value={city}>
-              {city}
-            </option>
-          ))}
-        </select>
-
-        <label className="form-label" htmlFor="zippostalcode">
-          ZIP / Postal Code
-        </label>
-
-        <input
-          type="text"
-          name="postalCode"
-          value={form.postalCode}
-          onChange={handleChange}
-          maxLength={10}
-          placeholder="Enter postal code"
-        />
-
-        <div className="button-group">
         
-          <button type="submit">Next</button>
+        <div className="mb-5">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Street Address
+          </label>
 
-          <button type="button" onClick={() => navigate(-1)}>
+          <input
+            type="text"
+            name="addressLine1"
+            value={form.addressLine1}
+            onChange={handleChange}
+            placeholder="e.g. 123 Innovation Drive"
+            className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+      
+        <div className="mb-5">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Apartment / Suite (Optional)
+          </label>
+
+          <input
+            type="text"
+            name="addressLine2"
+            value={form.addressLine2}
+            onChange={handleChange}
+            placeholder="Apartment / Suite"
+            className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Country / Region
+            </label>
+
+            <select
+              name="country"
+              value={form.country}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select</option>
+              <option value="IN">India</option>
+              <option value="US">United States</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              State / Province
+            </label>
+
+            <select
+              name="state"
+              value={form.state}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select</option>
+
+              {statesData[form.country]?.map((state) => (
+                <option key={state.code} value={state.code}>
+                  {state.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              City
+            </label>
+
+            <select
+              name="city"
+              value={form.city}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select City</option>
+
+              {citiesData[form.country]?.[form.state]?.map((city) => (
+                <option key={city} value={city}>
+                  {city}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              ZIP / Postal Code
+            </label>
+
+            <input
+              type="text"
+              name="postalCode"
+              value={form.postalCode}
+              onChange={handleChange}
+              maxLength={10}
+              placeholder="Enter postal code"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+        </div>
+
+        
+        <div className="flex gap-4 mt-8">
+
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="w-1/2 bg-gray-200 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-300 transition"
+          >
             Back
+          </button>
+
+          <button
+            type="submit"
+            className="w-1/2 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+          >
+            Next
           </button>
         </div>
       </form>
 
       <ToastContainer />
-    </>
+    </div>
   );
 }
 
 export default AddressGeography;
+

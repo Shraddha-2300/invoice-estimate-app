@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../styles/style.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
@@ -8,18 +7,18 @@ function BusinessProfile() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState(() => {
-  return (
-    JSON.parse(sessionStorage.getItem("businessData")) || {
-      businessName: "",
-      entityType: "",
-      industry: "",
-      registrationNumber: "",
-      country: "",
-      operatingStatus: "",
-      fiscalYearEnd: "",
-    }
-  );
-});
+    return (
+      JSON.parse(sessionStorage.getItem("businessData")) || {
+        businessName: "",
+        entityType: "",
+        industry: "",
+        registrationNumber: "",
+        country: "",
+        operatingStatus: "",
+        fiscalYearEnd: "",
+      }
+    );
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,7 +60,6 @@ function BusinessProfile() {
       return;
     }
 
-    
     if (form.entityType !== "SOLE_PROP") {
       if (!form.registrationNumber.trim()) {
         toast.error("Registration number is required");
@@ -95,123 +93,180 @@ function BusinessProfile() {
         return;
       }
     }
+
     sessionStorage.setItem("businessData", JSON.stringify(form));
+
     navigate("/address");
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <h2>Business Profile</h2>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-2xl bg-white rounded-2xl shadow-lg p-8"
+      >
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-2">
+          Business Profile
+        </h2>
 
-        <h3>Core Identity</h3>
+        <p className="text-center text-gray-500 mb-8">
+          Enter your company details
+        </p>
 
-        <label className="form-label" htmlFor="legalbusinessname">
-          Legal Business Name
-        </label>
+        
+        <div className="mb-5">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Legal Business Name
+          </label>
 
-        <input
-          type="text"
-          name="businessName"
-          value={form.businessName}
-          onChange={handleChange}
-          placeholder="Enter business name"
-        />
+          <input
+            type="text"
+            name="businessName"
+            value={form.businessName}
+            onChange={handleChange}
+            placeholder="Enter business name"
+            className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
 
-        <label className="form-label" htmlFor="entitytype">
-          Entity Type
-        </label>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Entity Type
+            </label>
 
-        <select
-          name="entityType"
-          value={form.entityType}
-          onChange={handleChange}
-        >
-          <option value="">Select</option>
-          <option value="SOLE_PROP">Sole Proprietorship</option>
-          <option value="PARTNERSHIP">Partnership</option>
-          <option value="LLC">LLC</option>
-          <option value="CORP">Corporation</option>
-        </select>
+            <select
+              name="entityType"
+              value={form.entityType}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select</option>
+              <option value="SOLE_PROP">Sole Proprietorship</option>
+              <option value="PARTNERSHIP">Partnership</option>
+              <option value="LLC">LLC</option>
+              <option value="CORP">Corporation</option>
+            </select>
+          </div>
 
-        <label className="form-label" htmlFor="industrysector">
-          Industry Sector
-        </label>
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Industry Sector
+            </label>
 
-        <select name="industry" value={form.industry} onChange={handleChange}>
-          <option value="">Select</option>
-          <option value="TECH">Technology</option>
-          <option value="FINANCE">Finance</option>
-          <option value="HEALTH">Healthcare</option>
-        </select>
+            <select
+              name="industry"
+              value={form.industry}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select</option>
+              <option value="TECH">Technology</option>
+              <option value="FINANCE">Finance</option>
+              <option value="HEALTH">Healthcare</option>
+            </select>
+          </div>
+        </div>
 
+        
         {form.entityType !== "SOLE_PROP" && (
           <>
-            <label className="form-label" htmlFor="businessregistrationnumber">
-              Business Registration Number
-            </label>
+            
+            <div className="mb-5">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Business Registration Number
+              </label>
 
-            <input
-              type="text"
-              name="registrationNumber"
-              value={form.registrationNumber}
-              onChange={handleChange}
-              maxLength={20}
-              placeholder="Enter registration number"
-            />
+              <input
+                type="text"
+                name="registrationNumber"
+                value={form.registrationNumber}
+                onChange={handleChange}
+                maxLength={20}
+                placeholder="Enter registration number"
+                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
 
-            <label className="form-label" htmlFor="countryofformation">
-              Country of Formation
-            </label>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Country of Formation
+                </label>
 
-            <select name="country" value={form.country} onChange={handleChange}>
-              <option value="">Select</option>
-              <option value="US">United States</option>
-              <option value="IN">India</option>
-            </select>
+                <select
+                  name="country"
+                  value={form.country}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="">Select</option>
+                  <option value="US">United States</option>
+                  <option value="IN">India</option>
+                </select>
+              </div>
 
-            <label className="form-label" htmlFor="operatingstatus">
-              Operating Status
-            </label>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Operating Status
+                </label>
 
-            <select
-              name="operatingStatus"
-              value={form.operatingStatus}
-              onChange={handleChange}
-            >
-              <option value="">Select</option>
-              <option value="ACTIVE">Active & Trading</option>
-              <option value="INACTIVE">Inactive</option>
-            </select>
+                <select
+                  name="operatingStatus"
+                  value={form.operatingStatus}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="">Select</option>
+                  <option value="ACTIVE">Active & Trading</option>
+                  <option value="INACTIVE">Inactive</option>
+                </select>
+              </div>
+            </div>
 
-            <label className="form-label" htmlFor="fiscalyearend">
-              Fiscal Year End
-            </label>
+            
+            <div className="mb-6">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Fiscal Year End
+              </label>
 
-            <select
-              name="fiscalYearEnd"
-              value={form.fiscalYearEnd}
-              onChange={handleChange}
-            >
-              <option value="">Select</option>
-              <option value="DEC">December 31st</option>
-              <option value="MAR">March 31st</option>
-            </select>
+              <select
+                name="fiscalYearEnd"
+                value={form.fiscalYearEnd}
+                onChange={handleChange}
+                className="w-full border border-gray-300 rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Select</option>
+                <option value="DEC">December 31st</option>
+                <option value="MAR">March 31st</option>
+              </select>
+            </div>
           </>
         )}
 
-        <div className="button-group">
-        <button type="submit">Next</button>
-          <button type="button" onClick={() => navigate(-1)}>
+      
+        <div className="flex gap-4 mt-8">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="w-1/2 bg-gray-200 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-300 transition"
+          >
             Back
           </button>
 
-          
+          <button
+            type="submit"
+            className="w-1/2 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+          >
+            Next
+          </button>
         </div>
       </form>
 
       <ToastContainer />
-    </>
+    </div>
   );
 }
 

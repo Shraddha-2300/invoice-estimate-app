@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../styles/style.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import OwnerForm from "../components/OwnerForm";
@@ -9,16 +8,16 @@ function Owners() {
   const navigate = useNavigate();
 
   const [owners, setOwners] = useState(() => {
-  return (
-    JSON.parse(sessionStorage.getItem("ownersData")) || [
-      {
-        fullName: "",
-        ownershipPercentage: "",
-        dob: "",
-      },
-    ]
-  );
-});
+    return (
+      JSON.parse(sessionStorage.getItem("ownersData")) || [
+        {
+          fullName: "",
+          ownershipPercentage: "",
+          dob: "",
+        },
+      ]
+    );
+  });
 
   const handleChange = (index, e) => {
     const { name, value } = e.target;
@@ -36,7 +35,8 @@ function Owners() {
     if (name === "ownershipPercentage" && owners.length === 2) {
       const otherIndex = index === 0 ? 1 : 0;
 
-      updatedOwners[otherIndex].ownershipPercentage = 100 - Number(value);
+      updatedOwners[otherIndex].ownershipPercentage =
+        100 - Number(value);
     }
 
     setOwners(updatedOwners);
@@ -85,7 +85,8 @@ function Owners() {
       }
 
       // Duplicate owner validation
-      const lowerCaseName = owner.fullName.trim().toLowerCase();
+      const lowerCaseName =
+        owner.fullName.trim().toLowerCase();
 
       if (ownerNames.includes(lowerCaseName)) {
         toast.error("Duplicate owners are not allowed");
@@ -122,42 +123,129 @@ function Owners() {
       return;
     }
 
-    //console.log(owners);
-    sessionStorage.setItem("ownersData", JSON.stringify(owners));
+    sessionStorage.setItem(
+      "ownersData",
+      JSON.stringify(owners)
+    );
+
     navigate("/review");
-   // toast.success("Owners Saved!");
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <h2>Owners</h2>
+    <div className="min-h-screen bg-gray-100 py-10 px-4">
+      
+      <form
+        onSubmit={handleSubmit}
+        className="
+          max-w-2xl
+          mx-auto
+          bg-white
+          shadow-xl
+          rounded-2xl
+          p-8
+          space-y-6
+        "
+      >
+        
+        <div>
+          <h2 className="text-3xl font-bold text-gray-800">
+            Owners Information
+          </h2>
 
-        {owners.map((owner, index) => (
-          <OwnerForm
-            key={index}
-            owner={owner}
-            index={index}
-            handleChange={handleChange}
-            removeOwner={removeOwner}
-          />
-        ))}
+          <p className="text-gray-500 mt-2">
+            Add all company owners and their ownership details.
+          </p>
+        </div>
 
-        <button type="button" onClick={addOwner}>
-          Add Owner
+        
+
+        <div className="space-y-6">
+          {owners.map((owner, index) => (
+            <div
+              key={index}
+              className="
+                border
+                border-gray-200
+                rounded-xl
+                p-5
+                bg-gray-50
+              "
+            >
+              <OwnerForm
+                owner={owner}
+                index={index}
+                handleChange={handleChange}
+                removeOwner={removeOwner}
+              />
+            </div>
+          ))}
+        </div>
+
+        
+
+        <button
+          type="button"
+          onClick={addOwner}
+          className="
+            w-full
+            border-2
+            border-dashed
+            border-indigo-400
+            text-indigo-600
+            font-semibold
+            py-3
+            rounded-xl
+            hover:bg-indigo-50
+            transition
+          "
+        >
+          + Add Owner
         </button>
 
-        <div className="button-group">
-          <button type="button" onClick={() => navigate("/address")}>
+        
+
+        <div className="flex gap-4">
+          
+          <button
+            type="submit"
+            className="
+              flex-1
+              bg-indigo-600
+              hover:bg-indigo-700
+              text-white
+              font-semibold
+              py-3
+              rounded-xl
+              transition
+            "
+          >
+            Next
+          </button>
+
+          <button
+            type="button"
+            onClick={() => navigate("/address")}
+            className="
+              flex-1
+              bg-gray-200
+              hover:bg-gray-300
+              text-gray-800
+              font-semibold
+              py-3
+              rounded-xl
+              transition
+            "
+          >
             Back
           </button>
 
-          <button type="submit">Next</button>
         </div>
+
       </form>
 
       <ToastContainer />
-    </>
+
+    </div>
   );
 }
 

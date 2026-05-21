@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import "../styles/style.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
 function Account() {
   const navigate = useNavigate();
+
   const [form, setForm] = useState(() => {
     return (
       JSON.parse(sessionStorage.getItem("accountData")) || {
@@ -25,6 +25,7 @@ function Account() {
     { code: "+44", label: "UK" },
     { code: "+61", label: "Australia" },
   ];
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
@@ -91,70 +92,118 @@ function Account() {
         return;
       }
     }
+
     sessionStorage.setItem("accountData", JSON.stringify(form));
 
     navigate("/business");
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <h2>Account Setup</h2>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-lg bg-white p-8 rounded-2xl shadow-lg"
+      >
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-2">
+          Account Setup
+        </h2>
 
-        <label className="form-label" htmlFor="email">
-          Email
-        </label>
-        <input
-          id="email"
-          type="email"
-          name="email"
-          value={form.email}
-          onChange={handleChange}
-        />
+        <p className="text-center text-gray-500 mb-8">
+          Create your secure business account
+        </p>
 
-        <label className="form-label" htmlFor="password">
-          Password
-        </label>
-        <input
-          id="password"
-          type="password"
-          name="password"
-          value={form.password}
-          onChange={handleChange}
-        />
+        
+        <div className="mb-5">
+          <label
+            className="block text-sm font-semibold text-gray-700 mb-2"
+            htmlFor="email"
+          >
+            Email Address
+          </label>
 
-        <label className="form-label" htmlFor="confirmPassword">
-          Confirm Password
-        </label>
-        <input
-          id="confirmPassword"
-          type="password"
-          name="confirmPassword"
-          value={form.confirmPassword}
-          onChange={handleChange}
-        />
+          <input
+            id="email"
+            type="email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            placeholder="Enter your email"
+            className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
 
-        <input
-          type="checkbox"
-          id="mfaEnabled"
-          name="mfaEnabled"
-          checked={form.mfaEnabled}
-          onChange={handleChange}
-        />
-        <label htmlFor="mfaEnabled">Enable MFA</label>
+        
+        <div className="mb-5">
+          <label
+            className="block text-sm font-semibold text-gray-700 mb-2"
+            htmlFor="password"
+          >
+            Password
+          </label>
 
+          <input
+            id="password"
+            type="password"
+            name="password"
+            value={form.password}
+            onChange={handleChange}
+            placeholder="Enter password"
+            className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        
+        <div className="mb-5">
+          <label
+            className="block text-sm font-semibold text-gray-700 mb-2"
+            htmlFor="confirmPassword"
+          >
+            Confirm Password
+          </label>
+
+          <input
+            id="confirmPassword"
+            type="password"
+            name="confirmPassword"
+            value={form.confirmPassword}
+            onChange={handleChange}
+            placeholder="Confirm password"
+            className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        
+        <div className="flex items-center gap-3 mb-5">
+          <input
+            type="checkbox"
+            id="mfaEnabled"
+            name="mfaEnabled"
+            checked={form.mfaEnabled}
+            onChange={handleChange}
+            className="h-4 w-4"
+          />
+
+          <label htmlFor="mfaEnabled" className="text-gray-700 font-medium">
+            Enable MFA Authentication
+          </label>
+        </div>
+
+        
         {form.mfaEnabled && (
-          <div className="form-group">
-            <label className="form-label" htmlFor="phoneNumber">
+          <div className="mb-6">
+            <label
+              className="block text-sm font-semibold text-gray-700 mb-2"
+              htmlFor="phoneNumber"
+            >
               Phone Number
             </label>
 
-            <div className="phone-group">
+            <div className="flex gap-3">
               <select
                 name="countryCode"
                 value={form.countryCode}
                 onChange={handleChange}
-                className="country-code"
+                className="border border-gray-300 rounded-lg px-3 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 {countryCodes.map((c) => (
                   <option key={c.code} value={c.code}>
@@ -162,24 +211,41 @@ function Account() {
                   </option>
                 ))}
               </select>
+
               <input
                 id="phoneNumber"
                 type="text"
                 name="phoneNumber"
                 value={form.phoneNumber}
                 onChange={handleChange}
+                placeholder="Enter phone number"
+                className="flex-1 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
           </div>
         )}
-        <button type="submit">Next</button>
-        <button type="button" onClick={() => navigate("/")}>
-          Back
-        </button>
+
+        
+        <div className="flex gap-4 mt-8">
+          <button
+            type="button"
+            onClick={() => navigate("/")}
+            className="w-1/2 bg-gray-200 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-300 transition"
+          >
+            Back
+          </button>
+
+          <button
+            type="submit"
+            className="w-1/2 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+          >
+            Next
+          </button>
+        </div>
       </form>
 
       <ToastContainer />
-    </>
+    </div>
   );
 }
 
